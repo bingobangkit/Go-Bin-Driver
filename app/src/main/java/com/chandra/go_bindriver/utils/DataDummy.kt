@@ -1,6 +1,7 @@
 package com.chandra.go_bindriver.utils
 
 import com.chandra.go_bindriver.model.Order
+import com.chandra.go_bindriver.model.Type
 import java.text.SimpleDateFormat
 
 object DataDummy {
@@ -13,7 +14,7 @@ object DataDummy {
                 "DqAcHlzm8ob7jMZFnXA2/2/3/4",
                 "ecG3cQr3aJSzEPnax8pR8K4KhPp1",
                 "yrcqexz4wJWwbvU8HvkuVDJVzh12",
-                1,
+                Type("1","Plastic Bottle",2000),
                 "Jl. Rancajigang No 128 RT 03 RW 10 Desa Padamulya Kecamatan Majalaya Kabupaten Bandung",
                 10,
                 200000,
@@ -30,7 +31,7 @@ object DataDummy {
                 "DqAcHlzm8ob7jMZFnXA2/2/3/4",
                 "ecG3cQr3aJSzEPnax8pR8K4KhPp1",
                 "yrcqexz4wJWwbvU8HvkuVDJVzh12",
-                1,
+                Type("1","Plastic Bottle",2000),
                 "Jl. Rancajigang No 128 RT 03 RW 10 Desa Padamulya Kecamatan Majalaya Kabupaten Bandung",
                 10,
                 200000,
@@ -47,7 +48,7 @@ object DataDummy {
                 "DqAcHlzm8ob7jMZFnXA2/2/3/4",
                 "ecG3cQr3aJSzEPnax8pR8K4KhPp1",
                 "yrcqexz4wJWwbvU8HvkuVDJVzh12",
-                1,
+                Type("1","Plastic Bottle",2000),
                 "Jl. Rancajigang No 128 RT 03 RW 10 Desa Padamulya Kecamatan Majalaya Kabupaten Bandung",
                 10,
                 200000,
