@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container_main"
-    android:paddingHorizontal="20dp"
     android:background="@color/background"
+    android:paddingHorizontal="20dp"
     android:paddingTop="20dp"
-    tools:context=".ui.order.MainActivity">
+    tools:context=".ui.home.MainActivity">
 
     <include
 
@@ -29,13 +29,24 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar_main" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="10dp"
         android:id="@+id/rv_order"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:layout_editor_absoluteX="20dp" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        app:menu="@menu/menu"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_order"
+         />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

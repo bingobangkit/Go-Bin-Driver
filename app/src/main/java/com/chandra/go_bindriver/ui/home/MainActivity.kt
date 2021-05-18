@@ -1,5 +1,6 @@
-package com.chandra.go_bindriver.ui.order
+package com.chandra.go_bindriver.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import com.chandra.go_bindriver.databinding.ActivityMainBinding
 import com.chandra.go_bindriver.model.Order
 import com.chandra.go_bindriver.model.Type
 import com.chandra.go_bindriver.ui.detail.DetailFragment
+import com.chandra.go_bindriver.ui.order.OrderFragment
 import com.chandra.go_bindriver.utils.DataDummy
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
@@ -36,6 +38,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val orderFragment=OrderFragment()
+
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
+            Log.d("main", it.itemId.toString())
+            when(it.itemId){
+
+                R.id.order -> supportFragmentManager.beginTransaction().apply { replace(R.id.container_main,orderFragment).commit() }
+                R.id.home-> startActivity(Intent(applicationContext,MainActivity::class.java))
+            }
+            true
+        }
 
         val orderDummy = DataDummy.generateOrder()
         binding.rvOrder.layoutManager = LinearLayoutManager(this)
@@ -84,6 +98,7 @@ class MainActivity : AppCompatActivity() {
                         override fun onItemClicked(order: Order) {
                             val bundle = Bundle()
                             bundle.putParcelable(DetailFragment.ORDERDETAIL, order)
+                            bundle.putString(DetailFragment.ID,order.id)
                             val detailFragment = DetailFragment()
                             detailFragment.arguments = bundle
                             supportFragmentManager.beginTransaction()
@@ -111,7 +126,5 @@ class MainActivity : AppCompatActivity() {
         return type1
     }
 
-//    fun setOrder(documentReference: DocumentReference):Order{
-//        documentReference.get().result
-//    }
+
 }
