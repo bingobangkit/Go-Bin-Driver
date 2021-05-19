@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:paddingHorizontal="20dp"
+
     android:paddingTop="20dp"
     tools:context=".ui.home.MainActivity">
 
     <include
-
+        android:paddingHorizontal="20dp"
         android:id="@+id/toolbar_main"
         layout="@layout/toolbar" />
 
@@ -29,13 +29,14 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar_main" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:paddingHorizontal="20dp"
         android:id="@+id/rv_order"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="20dp" />
+         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -47,6 +48,20 @@
         app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/rv_order"
          />
+
+    <TextView
+        android:id="@+id/no_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="No Order Coming"
+        android:visibility="gone"
+        android:textColor="@color/primary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

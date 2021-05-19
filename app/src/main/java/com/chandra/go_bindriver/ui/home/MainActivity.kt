@@ -3,6 +3,7 @@ package com.chandra.go_bindriver.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chandra.go_bindriver.R
@@ -11,7 +12,6 @@ import com.chandra.go_bindriver.model.Order
 import com.chandra.go_bindriver.model.Type
 import com.chandra.go_bindriver.ui.detail.DetailFragment
 import com.chandra.go_bindriver.ui.order.OrderFragment
-import com.chandra.go_bindriver.utils.DataDummy
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -45,36 +45,50 @@ class MainActivity : AppCompatActivity() {
             Log.d("main", it.itemId.toString())
             when(it.itemId){
 
-                R.id.order -> supportFragmentManager.beginTransaction().apply { replace(R.id.container_main,orderFragment).commit() }
+                R.id.order -> supportFragmentManager.beginTransaction().apply { replace(R.id.container_main,orderFragment).addToBackStack(null).commit() }
                 R.id.home-> startActivity(Intent(applicationContext,MainActivity::class.java))
             }
             true
         }
 
-        val orderDummy = DataDummy.generateOrder()
+
         binding.rvOrder.layoutManager = LinearLayoutManager(this)
 
+        fStore.collection("users").get().addOnCompleteListener {
+            if (it.isSuccessful){
+                for (document in it.result!!){
+                    Log.d(TAG, document.id + " data=> " + document.data)
+                }
+            }
 
+        }
         fStore.collection("order").whereEqualTo("status", "waiting").get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
+                    if (task.result?.count() == 0){
+                        binding.noOrder.visibility = View.VISIBLE
+                    }else{
+                        binding.noOrder.visibility = View.INVISIBLE
+                    }
+
                     for (document in task.result!!) {
-                        Log.d(TAG, document.id + " data=> " + document.data["id_type"])
-                        doc = document.data["id_type"] as DocumentReference
-                        var name: String;
-                        var id: Int;
+
+//                        doc = document.data["id_type"] as DocumentReference
+//                        var name: String;
+//                        var id: Int;
                         var type = Type()
-                        doc.get().addOnCompleteListener {
-                            val data = it.result
-                            Log.d(TAG, it.result?.data?.get("name")?.toString().toString())
-                            Log.d(TAG, it.result?.id.toString())
-                            it.result?.data
-                            name = it.result?.data?.get("name")?.toString().toString()
-                            setType(type, data)
-
-                        }
-                        Log.d(TAG, type.toString())
-
+//                        doc.get().addOnCompleteListener {
+//                            val data = it.result
+//                            Log.d(TAG, it.result?.data?.get("name")?.toString().toString())
+//                            Log.d(TAG, it.result?.id.toString())
+//                            it.result?.data
+//                            name = it.result?.data?.get("name")?.toString().toString()
+//                            setType(type, data)
+//
+//                        }
+//                        Log.d(TAG, type.toString())
+//
 
                         val order = Order(
                             id = document.id,
@@ -90,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                             status = document["status"].toString(),
                             date = document["date"].toString()
                         )
-//                        setOrder(order)
+
                         listOrderGarbage.add(order)
                     }
                     listOrder = ListOrderAdapter(listOrderGarbage)
@@ -124,6 +138,17 @@ class MainActivity : AppCompatActivity() {
         type1 =
             Type(data?.id.toString(), data!!["name"].toString(), data["price"].toString().toInt())
         return type1
+    }
+
+    override fun onBackPressed() {
+        val count = supportFragmentManager.backStackEntryCount
+
+        if (count == 0) {
+            super.onBackPressed()
+            //additional code
+        } else {
+            supportFragmentManager.popBackStack()
+        }
     }
 
 

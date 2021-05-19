@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.chandra.go_bindriver.databinding.ItemOrderBinding
+
 import com.chandra.go_bindriver.model.Order
 
 class ListOrderAdapter(private val listOrder:List<Order>) :RecyclerView.Adapter<ListOrderAdapter.ListViewHolder>(){
@@ -21,10 +22,10 @@ class ListOrderAdapter(private val listOrder:List<Order>) :RecyclerView.Adapter<
         val order = listOrder[position]
         holder.binding.apply {
             tvName.text = order.idUser
-            tvAmount.text = order.amount.toString()
-            tvDistance.text = "5km"
+            tvAmount.text = order.amount.toString()+"kg"
+            tvDistance.text = order.status
             tvDate.text = order.date
-            tvPrice.text = order.price.toString()
+            tvPrice.text = "Rp. "+order.price.toString()
             root.setOnClickListener { onItemClickCallback?.onItemClicked(order) }
         }
 

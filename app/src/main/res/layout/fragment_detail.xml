@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-
+    android:paddingHorizontal="20dp"
+    android:paddingBottom="20dp"
     tools:context=".ui.detail.DetailFragment">
 
     <include
@@ -40,7 +41,7 @@
         android:text="082214106020"
         android:textColor="@color/primary"
         android:textSize="14sp"
-        app:drawableLeftCompat="@drawable/ic_phone"
+        app:drawableLeftCompat="@drawable/ic_phone2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_address" />
@@ -67,13 +68,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:drawablePadding="10dp"
+        android:drawablePadding="7dp"
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
         android:text="5km"
         android:textColor="@color/primary"
         android:textSize="14sp"
-        app:drawableLeftCompat="@drawable/ic_distance"
+        app:drawableLeftCompat="@drawable/ic_pickup3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_date" />
@@ -211,6 +212,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_button"
+        app:backgroundTint = "@color/green"
+
         android:fontFamily="@font/poppins_bold"
         android:includeFontPadding="false"
         android:text="pickup"
