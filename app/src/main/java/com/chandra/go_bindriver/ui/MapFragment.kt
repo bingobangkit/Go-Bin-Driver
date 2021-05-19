@@ -14,7 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class MapFragment : Fragment() {
-    lateinit var binding: FragmentMapBinding
+    private lateinit var binding: FragmentMapBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

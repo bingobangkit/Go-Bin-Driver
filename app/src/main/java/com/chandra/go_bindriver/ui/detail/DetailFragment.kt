@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import com.chandra.go_bindriver.R
 import com.chandra.go_bindriver.databinding.FragmentDetailBinding
 import com.chandra.go_bindriver.ui.MapFragment
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
@@ -48,6 +50,8 @@ class DetailFragment : Fragment() {
         val fStore = FirebaseFirestore.getInstance()
 
         getOrder(fStore, id)
+       val botnav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        botnav.visibility = View.GONE
     }
 
     private fun getOrder(fStore: FirebaseFirestore, id: String?) {
@@ -107,5 +111,9 @@ class DetailFragment : Fragment() {
             }
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        val botnav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        botnav.visibility = View.VISIBLE
+    }
 }
