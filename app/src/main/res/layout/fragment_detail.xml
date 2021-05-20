@@ -212,7 +212,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_button"
-        app:backgroundTint = "@color/green"
+        app:backgroundTint = "@color/blue"
 
         android:fontFamily="@font/poppins_bold"
         android:includeFontPadding="false"

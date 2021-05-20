@@ -28,6 +28,7 @@ class DetailFragment : Fragment() {
         const val ORDERDETAIL: String = "orderdetail"
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,13 +38,6 @@ class DetailFragment : Fragment() {
         val fragment = MapFragment()
         parentFragmentManager.beginTransaction().replace(R.id.layout_gmaps, fragment).commit()
 
-
-        return binding.root
-    }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         val args = arguments
         binding.toolbarDetail.root.setPadding(0,0,0,0)
         binding.toolbarDetail.btnBack.setOnClickListener {
@@ -56,14 +50,16 @@ class DetailFragment : Fragment() {
         getOrder(fStore, id)
         val botnav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
         botnav.visibility = View.GONE
+        return binding.root
     }
+
+  
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun getOrder(fStore: FirebaseFirestore, id: String?) {
 
-        fStore.collection("order").document(id.toString()).get().addOnCompleteListener { task ->
-            val data = task.result
-            status = task.result?.get("status").toString()
+        fStore.collection("order").document(id.toString()).addSnapshotListener { value, error ->
+            status = value?.get("status").toString()
             if (status == "ongoing") {
                 binding.btnPickup.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.green))
                 binding.btnPickup.text = "Complete"
@@ -72,16 +68,16 @@ class DetailFragment : Fragment() {
             }
 
             binding.apply {
-                setTextDetail(data)
+                setTextDetail(value)
                 btnPickup.setOnClickListener {
                     if (status == "waiting") {
                         status = "ongoing"
-                        updateStatus(fStore, data!!, status)
+                        updateStatus(fStore, value!!, status)
                         binding.btnPickup.setBackgroundResource(R.drawable.background_button_complete)
                         binding.btnPickup.text = "Complete"
                     } else if (status == "ongoing") {
                         status = "complete"
-                        updateStatus(fStore, data!!, status)
+                        updateStatus(fStore, value!!, status)
                         btnPickup.visibility = View.GONE
                     }
                 }

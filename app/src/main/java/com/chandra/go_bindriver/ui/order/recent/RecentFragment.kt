@@ -29,43 +29,54 @@ class RecentFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRecentBinding.inflate(layoutInflater,container,false)
+        binding.rvRecent.layoutManager = LinearLayoutManager(context)
+
+        realtimeUpdates()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.rvRecent.layoutManager = LinearLayoutManager(context)
 
-        fStore.collection("order").whereEqualTo("status", "complete").get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    for (document in task.result!!) {
-                        Log.d("ongoing", document["address"].toString())
-                        val type = Type()
 
-                        val order = Order(
-                            id = document.id,
-                            idInvoice = document["id_invoice"].toString(),
-                            idDriver = document["id_driver"].toString(),
-                            idUser = "Chandra Muhamad Apriana",
-                            idType = type,
-                            address = document["address"].toString(),
-                            amount = document["amount"].toString().toInt(),
-                            price = document["total_price"].toString().toInt(),
-                            latitude = document["latitude"].toString(),
-                            longitude = document["longitude"].toString(),
-                            status = document["status"].toString(),
-                            date = document["date"].toString()
-                        )
+    private fun realtimeUpdates() {
+        fStore.collection("order").whereEqualTo("status", "complete")
+            .addSnapshotListener { value, error ->
+                val listOrderGarbage = ArrayList<Order>()
 
-                        listOrderGarbage.add(order)
+                if (value?.count() == 0) {
+                    binding.noOrderRecent.visibility = View.VISIBLE
+                } else {
+                    binding.noOrderRecent.visibility = View.INVISIBLE
+                }
+
+                value.let {
+                    if (it != null) {
+                        for (document in it) {
+                            val type = Type()
+
+                            val order = Order(
+                                id = document.id,
+                                idInvoice = document["id_invoice"].toString(),
+                                idDriver = document["id_driver"].toString(),
+                                idUser = "Chandra Muhamad Apriana",
+                                idType = type,
+                                address = document["address"].toString(),
+                                amount = document["amount"].toString().toInt(),
+                                price = document["total_price"].toString().toInt(),
+                                latitude = document["latitude"].toString(),
+                                longitude = document["longitude"].toString(),
+                                status = document["status"].toString(),
+                                date = document["date"].toString()
+                            )
+
+                            listOrderGarbage.add(order)
+                        }
                     }
                     listOrder = ListOrderAdapter(listOrderGarbage)
                     listOrder.setOnItemClickCallback(object : ListOrderAdapter.OnItemClickCallback {
                         override fun onItemClicked(order: Order) {
                             val bundle = Bundle()
                             bundle.putParcelable(DetailFragment.ORDERDETAIL, order)
-                            bundle.putString(DetailFragment.ID,order.id)
+                            bundle.putString(DetailFragment.ID, order.id)
                             val detailFragment = DetailFragment()
                             detailFragment.arguments = bundle
                             parentFragmentManager.beginTransaction()
@@ -76,12 +87,8 @@ class RecentFragment : Fragment() {
                     })
                     binding.rvRecent.adapter = listOrder
 
-
-                } else {
-                    Log.w(MainActivity.TAG, "Error getting documents.", task.exception)
                 }
             }
-
     }
 
 
