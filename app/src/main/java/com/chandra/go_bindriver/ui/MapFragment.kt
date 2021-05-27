@@ -39,6 +39,8 @@ class MapFragment : Fragment() {
             markerOptions.title("user")
             googleMap.clear()
 
+
+
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(addressUser, 15f))
             googleMap.addMarker(markerOptions)
 

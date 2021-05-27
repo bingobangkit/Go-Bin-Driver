@@ -55,13 +55,13 @@ class RecentFragment : Fragment() {
 
                             val order = Order(
                                 id = document.id,
-                                idInvoice = document["id_invoice"].toString(),
-                                idDriver = document["id_driver"].toString(),
-                                idUser = "Chandra Muhamad Apriana",
-                                idType = type,
+                                id_invoice = document["id_invoice"].toString(),
+                                id_driver = document["id_driver"].toString(),
+                                id_user = "Chandra Muhamad Apriana",
+                                id_type = "1",
                                 address = document["address"].toString(),
-                                amount = document["amount"].toString().toInt(),
-                                price = document["total_price"].toString().toInt(),
+                                amount = document["amount"].toString(),
+                                total_price = document["total_price"].toString(),
                                 latitude = document["latitude"].toString(),
                                 longitude = document["longitude"].toString(),
                                 status = document["status"].toString(),
@@ -75,7 +75,7 @@ class RecentFragment : Fragment() {
                     listOrder.setOnItemClickCallback(object : ListOrderAdapter.OnItemClickCallback {
                         override fun onItemClicked(order: Order) {
                             val bundle = Bundle()
-                            bundle.putParcelable(DetailFragment.ORDERDETAIL, order)
+//                            bundle.putParcelable(DetailFragment.ORDERDETAIL, order)
                             bundle.putString(DetailFragment.ID, order.id)
                             val detailFragment = DetailFragment()
                             detailFragment.arguments = bundle

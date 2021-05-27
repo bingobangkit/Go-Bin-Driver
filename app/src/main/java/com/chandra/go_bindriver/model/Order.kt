@@ -1,21 +1,18 @@
 package com.chandra.go_bindriver.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import java.util.*
+import java.io.Serializable
 
-@Parcelize
 data class Order(
-    val id: String,
-    val idInvoice : String,
-    val idDriver:String,
-    val idUser:String,
-    val idType:Type,
-    val address:String,
-    val amount:Int,
-    val price:Int,
-    val latitude:String,
-    val longitude:String,
-    val status:String,
-    val date:String
-) : Parcelable
+    var id: String = "",
+    var id_invoice: String = "",
+    var id_driver: String = "",
+    var id_user: String = "",
+    var address: String = "",
+    var id_type: String = "",
+    var amount: String = "",
+    var latitude: String = "",
+    var longitude: String = "",
+    var status: String = "",
+    var date: String = "",
+    var total_price: String =""
+) : Serializable

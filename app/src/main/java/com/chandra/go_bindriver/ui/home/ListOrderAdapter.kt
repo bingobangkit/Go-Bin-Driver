@@ -21,11 +21,11 @@ class ListOrderAdapter(private val listOrder:List<Order>) :RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val order = listOrder[position]
         holder.binding.apply {
-            tvName.text = order.idUser
+            tvName.text = "Chandra Muhamad Apriana"
             tvAmount.text = order.amount.toString()+"kg"
             tvDistance.text = order.status
             tvDate.text = order.date
-            tvPrice.text = "Rp. "+order.price.toString()
+            tvPrice.text = "Rp. "+order.total_price.toString()
             root.setOnClickListener { onItemClickCallback?.onItemClicked(order) }
         }
 
