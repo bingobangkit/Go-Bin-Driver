@@ -71,7 +71,7 @@
         android:drawablePadding="7dp"
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
-        android:text="5km"
+        android:text="waiting"
         android:textColor="@color/primary"
         android:textSize="14sp"
         app:drawableLeftCompat="@drawable/ic_pickup3"
@@ -91,11 +91,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_distance" />
 
+
     <TextView
         android:id="@+id/tv_detail_bottle_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:drawablePadding="10dp"
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
@@ -106,6 +107,21 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/disposing" />
+
+    <TextView
+        android:id="@+id/txt_detail_price_bottle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:fontFamily="@font/poppins_light"
+        android:includeFontPadding="false"
+        android:text="(Rp. 2000/kg)"
+        android:textColor="@color/dark_grey"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_detail_bottle_title"
+        app:layout_constraintStart_toEndOf="@+id/tv_detail_bottle_title"
+        app:layout_constraintTop_toTopOf="@+id/tv_detail_bottle_title" />
 
     <TextView
         android:id="@+id/tv_detail_amount"
@@ -122,6 +138,139 @@
         app:layout_constraintTop_toTopOf="@+id/tv_detail_bottle_title" />
 
     <TextView
+        android:id="@+id/tv_detail_cardboard_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/poppins_regular"
+        android:includeFontPadding="false"
+        android:text="Cardboard"
+        android:textColor="@color/primary"
+        android:textSize="14sp"
+        app:drawableLeftCompat="@drawable/ic_box"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_bottle_title" />
+
+    <TextView
+        android:id="@+id/txt_detail_price_cardboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:fontFamily="@font/poppins_light"
+        android:includeFontPadding="false"
+        android:text="(Rp. 3000/kg)"
+        android:textColor="@color/dark_grey"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_detail_cardboard_title"
+        app:layout_constraintStart_toEndOf="@+id/tv_detail_cardboard_title"
+        app:layout_constraintTop_toTopOf="@+id/tv_detail_cardboard_title" />
+
+    <TextView
+        android:id="@+id/tv_detail_amount_cardboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:text="10Kg"
+        android:textColor="@color/primary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_detail_cardboard_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_detail_cardboard_title" />
+
+    <TextView
+        android:id="@+id/tv_detail_steel_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppins_regular"
+        android:includeFontPadding="false"
+        android:text="Steel"
+        android:gravity="center_vertical"
+        android:textColor="@color/primary"
+        android:textSize="14sp"
+        app:drawableLeftCompat="@drawable/ic_steel"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_cardboard_title" />
+
+    <TextView
+        android:id="@+id/txt_detail_price_steel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:fontFamily="@font/poppins_light"
+        android:includeFontPadding="false"
+        android:text="(Rp. 5000/kg)"
+        android:textColor="@color/dark_grey"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_detail_steel_title"
+        app:layout_constraintStart_toEndOf="@+id/tv_detail_steel_title"
+        app:layout_constraintTop_toTopOf="@+id/tv_detail_steel_title" />
+
+    <TextView
+        android:id="@+id/tv_detail_amount_steel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:text="10Kg"
+        android:textColor="@color/primary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_detail_steel_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_detail_steel_title" />
+
+    <View
+        android:id="@+id/line_disposing"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:background="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_steel_title" />
+
+    <TextView
+        android:id="@+id/txt_title_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="Total"
+        android:textColor="@color/primary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_disposing" />
+
+    <TextView
+        android:id="@+id/txt_detail_total_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:fontFamily="@font/poppins_bold"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="Rp. 4000"
+        android:textColor="@color/primary"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_title_total"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_title_total" />
+
+
+    <TextView
         android:id="@+id/order_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -131,18 +280,18 @@
         android:text="Order Info"
         android:textColor="@color/dark_grey"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_detail_bottle_title" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_title_total" />
 
 
     <TextView
-        android:id="@+id/recycle_trash"
+        android:id="@+id/payment_method"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:drawablePadding="10dp"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/poppins_semibold"
         android:includeFontPadding="false"
-        android:text="Recycle Trash"
+        android:text="Payment Method"
         android:textColor="@color/primary"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -150,11 +299,40 @@
 
 
     <TextView
-        android:id="@+id/tv_detail_price"
+        android:id="@+id/tv_detail_payment_method"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawablePadding="10dp"
         android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:text="Wallet"
+        android:textColor="@color/primary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/payment_method"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/payment_method" />
+
+    <TextView
+        android:id="@+id/recycle_trash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppins_regular"
+        android:includeFontPadding="false"
+        android:text="Recycle Trash"
+        android:textColor="@color/primary"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payment_method" />
+
+
+    <TextView
+        android:id="@+id/tv_detail_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
         android:text="2*2000"
         android:textColor="@color/primary"
@@ -163,19 +341,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/recycle_trash" />
 
+    <TextView
+        android:id="@+id/title_order_info_shipping_charge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins_regular"
+        android:includeFontPadding="false"
+        android:text="Shipping Charge"
+        android:textColor="@color/primary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycle_trash" />
+
+    <TextView
+        android:id="@+id/txt_detail_shipping_charge_order_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:includeFontPadding="false"
+        android:text="Rp. 2000"
+        android:textColor="@color/primary"
+        app:layout_constraintBottom_toBottomOf="@+id/title_order_info_shipping_charge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title_order_info_shipping_charge" />
+
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:background="@android:color/black"
-        app:layout_constraintTop_toBottomOf="@+id/recycle_trash" />
+        app:layout_constraintTop_toBottomOf="@+id/title_order_info_shipping_charge"
+        tools:layout_editor_absoluteX="20dp" />
 
     <TextView
         android:id="@+id/total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:drawablePadding="10dp"
         android:fontFamily="@font/poppins_semibold"
         android:includeFontPadding="false"
@@ -190,7 +393,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawablePadding="10dp"
-        android:fontFamily="@font/poppins_semibold"
+        android:fontFamily="@font/poppins_bold"
         android:includeFontPadding="false"
         android:text="Rp. 20.000"
         android:textColor="@color/primary"
@@ -211,12 +414,15 @@
         android:id="@+id/btn_directions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
         android:text="Navigate"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/layout_gmaps"
-        app:layout_constraintEnd_toEndOf="@+id/layout_gmaps"
-        android:layout_marginEnd="10dp" />
+        app:layout_constraintEnd_toEndOf="@+id/layout_gmaps" />
 
 
     <Button

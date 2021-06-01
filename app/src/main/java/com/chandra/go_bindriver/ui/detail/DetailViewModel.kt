@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.chandra.go_bindriver.data.Repository
 import com.chandra.go_bindriver.model.Order
+import com.chandra.go_bindriver.model.User
 import com.chandra.go_bindriver.utils.lazyDeferred
-import com.google.firebase.FirebaseException
 import com.google.firebase.firestore.FirebaseFirestoreException
-import kotlinx.coroutines.Deferred
 
 class DetailViewModel : ViewModel() {
     private val repository = Repository()
@@ -29,4 +28,14 @@ class DetailViewModel : ViewModel() {
         }
     }
 
+    fun updateBalance(id:String,balance:String){
+        repository.updateBalance(id,balance)
+    }
+
+    suspend fun getUserById(id_user: String):LiveData<out User> {
+        val user by lazyDeferred {
+            repository.getUserById(id_user)
+        }
+        return user.await()
+    }
 }

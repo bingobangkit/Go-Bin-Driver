@@ -5,18 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chandra.go_bindriver.R
 import com.chandra.go_bindriver.databinding.FragmentOngoingBinding
 import com.chandra.go_bindriver.model.Order
-import com.chandra.go_bindriver.model.Type
 import com.chandra.go_bindriver.ui.detail.DetailFragment
 import com.chandra.go_bindriver.ui.home.ListOrderAdapter
+import com.chandra.go_bindriver.ui.map.MapFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
 
 
 class OngoingFragment : Fragment() {
     private lateinit var binding: FragmentOngoingBinding
+    private val viewModel:OngoingViewModel by viewModels()
 
     private var listOrderGarbage = ArrayList<Order>()
     private lateinit var listOrder: ListOrderAdapter
@@ -33,14 +38,25 @@ class OngoingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvOngoing.layoutManager = LinearLayoutManager(context)
+        val fabMaps = requireActivity().findViewById<FloatingActionButton>(R.id.fab_maps)
+        fabMaps.visibility = View.GONE
+
+        binding.fabMapsOngoing.setOnClickListener {
+            val fragment = MapFragment()
+            val bundle = Bundle()
+            bundle.putString(MapFragment.FROM, "ongoing")
+            fragment.arguments = bundle
+            parentFragmentManager.beginTransaction().replace(R.id.container_order, fragment)
+                .addToBackStack(null).commit()
+        }
 
         realtimeUpdates()
 
     }
 
     private fun realtimeUpdates() {
-        fStore.collection("order").whereEqualTo("status", "ongoing")
-            .addSnapshotListener { value, error ->
+        lifecycleScope.launch {
+            viewModel.orderByOngoing.await().observe(viewLifecycleOwner,{value->
                 val listOrderGarbage = ArrayList<Order>()
 
                 if (value?.count() == 0) {
@@ -52,21 +68,20 @@ class OngoingFragment : Fragment() {
                 value.let {
                     if (it != null) {
                         for (document in it) {
-                            val type = Type()
 
                             val order = Order(
                                 id = document.id,
-                                id_invoice = document["id_invoice"].toString(),
-                                id_driver = document["id_driver"].toString(),
+                                id_invoice = document.id_invoice,
+                                id_driver = document.id_driver,
                                 id_user = "Chandra Muhamad Apriana",
                                 id_type = "1",
-                                address = document["address"].toString(),
-                                amount = document["amount"].toString(),
-                                total_price =  document["total_price"].toString(),
-                                latitude = document["latitude"].toString(),
-                                longitude = document["longitude"].toString(),
-                                status = document["status"].toString(),
-                                date = document["date"].toString()
+                                address = document.address,
+                                amount = document.amount,
+                                total_price =  document.total_price,
+                                latitude = document.latitude,
+                                longitude = document.longitude,
+                                status = document.status,
+                                date = document.date
                             )
 
                             listOrderGarbage.add(order)
@@ -76,7 +91,6 @@ class OngoingFragment : Fragment() {
                     listOrder.setOnItemClickCallback(object : ListOrderAdapter.OnItemClickCallback {
                         override fun onItemClicked(order: Order) {
                             val bundle = Bundle()
-//                            bundle.putParcelable(DetailFragment.ORDERDETAIL, order)
                             bundle.putString(DetailFragment.ID, order.id)
                             val detailFragment = DetailFragment()
                             detailFragment.arguments = bundle
@@ -89,8 +103,11 @@ class OngoingFragment : Fragment() {
                     binding.rvOngoing.adapter = listOrder
 
                 }
-            }
+            })
+        }
+
     }
+
 
 
 }

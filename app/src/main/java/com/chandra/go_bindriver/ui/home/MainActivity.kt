@@ -1,8 +1,9 @@
 package com.chandra.go_bindriver.ui.home
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.chandra.go_bindriver.databinding.ActivityMainBinding
 import com.chandra.go_bindriver.model.Order
 import com.chandra.go_bindriver.model.Type
 import com.chandra.go_bindriver.ui.detail.DetailFragment
+import com.chandra.go_bindriver.ui.map.MapFragment
 import com.chandra.go_bindriver.ui.order.OrderFragment
 import com.google.firebase.firestore.*
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -41,6 +43,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.rvOrder.layoutManager = LinearLayoutManager(this)
+        binding.fabMaps.setOnClickListener {
+            val fragment = MapFragment()
+            supportFragmentManager.beginTransaction().replace(R.id.container_main, fragment)
+                .commit()
+        }
+        binding.fabMaps.visibility = View.VISIBLE
 
         bottomNavigation()
         realtimeUpdates()
@@ -50,15 +58,34 @@ class MainActivity : AppCompatActivity() {
 
     private fun bottomNavigation() {
         val orderFragment = OrderFragment()
+        val iconColorStates = ColorStateList(
+            arrayOf(
+                intArrayOf(-android.R.attr.state_checked),
+                intArrayOf(android.R.attr.state_checked)
+            ), intArrayOf(
+                Color.parseColor("#A4A4A4"),
+                Color.parseColor("#FFFFFF")
+            )
+        )
 
+        binding.bottomNavigation.itemIconTintList = iconColorStates
+        binding.bottomNavigation.itemTextColor = iconColorStates
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
-            Log.d("main", it.itemId.toString())
             when (it.itemId) {
-
-                R.id.order -> supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.container_main, orderFragment).addToBackStack(null).commit()
+                R.id.order -> {
+                    it.isCheckable = true
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container_main, orderFragment).addToBackStack(null).commit()
+                    }
                 }
-                R.id.home -> startActivity(Intent(applicationContext, MainActivity::class.java))
+                R.id.home ->{
+                    it.isCheckable = true
+                    startActivity(
+                    Intent(
+                        applicationContext,
+                        MainActivity::class.java
+                    ).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                )}
             }
             true
         }
@@ -79,7 +106,6 @@ class MainActivity : AppCompatActivity() {
 
         if (count == 0) {
             super.onBackPressed()
-            //additional code
         } else {
             supportFragmentManager.popBackStack()
         }
@@ -97,13 +123,20 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 listOrder = ListOrderAdapter(it)
-                Log.d("main", it.toString())
                 binding.rvOrder.adapter = listOrder
+
+                binding.fabMaps.setOnClickListener {
+                    val fragment = MapFragment()
+                    val bundle = Bundle()
+                    bundle.putString(MapFragment.FROM, "home")
+                    fragment.arguments = bundle
+                    supportFragmentManager.beginTransaction().replace(R.id.container_main, fragment)
+                        .addToBackStack(null).commit()
+                }
 
                 listOrder.setOnItemClickCallback(object : ListOrderAdapter.OnItemClickCallback {
                     override fun onItemClicked(order: Order) {
                         val bundle = Bundle()
-                        Log.d("main","id"+order.id)
                         bundle.putString(DetailFragment.ID, order.id)
                         val detailFragment = DetailFragment()
                         detailFragment.arguments = bundle
@@ -116,73 +149,9 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-//        fStore.collection("order").whereEqualTo("status", "waiting")
-//            .addSnapshotListener { value, error ->
-//                val listOrderGarbage = ArrayList<Order>()
-//
-//                if (value?.count() == 0) {
-//                    binding.noOrder.visibility = View.VISIBLE
-//                } else {
-//                    binding.noOrder.visibility = View.INVISIBLE
-//                }
-//
-//                value.let {
-//                    if (it != null) {
-//                        for (document in it) {
-//                            val type = Type()
-//
-//                            val order = Order(
-//                                id = document.id,
-//                                id_invoice = document["id_invoice"].toString(),
-//                                id_driver = document["id_driver"].toString(),
-//                                id_user = "Chandra Muhamad Apriana",
-//                                id_type = "1",
-//                                address = document["address"].toString(),
-//                                amount = document["amount"].toString(),
-//                                price = document["total_price"].toString(),
-//                                latitude = document["latitude"].toString(),
-//                                longitude = document["longitude"].toString(),
-//                                status = document["status"].toString(),
-//                                date = document["date"].toString()
-//                            )
-//
-//                            listOrderGarbage.add(order)
-//                        }
-//                    }
-//                    listOrder = ListOrderAdapter(listOrderGarbage)
-//                    listOrder.setOnItemClickCallback(object : ListOrderAdapter.OnItemClickCallback {
-//                        override fun onItemClicked(order: Order) {
-//                            val bundle = Bundle()
-//                            bundle.putString(DetailFragment.ID, order.id)
-//                            val detailFragment = DetailFragment()
-//                            detailFragment.arguments = bundle
-//                            supportFragmentManager.beginTransaction()
-//                                .replace(R.id.container_main, detailFragment).addToBackStack(null)
-//                                .commit()
-//
-//                        }
-//                    })
-//                    binding.rvOrder.adapter = listOrder
-//
-//                }
-//            }
+
     }
 
-    private fun getType(document: QueryDocumentSnapshot) {
-        doc = document.data["id_type"] as DocumentReference
-        var name: String;
-        var id: Int;
-        var type = Type()
-        doc.get().addOnCompleteListener {
-            val data = it.result
-            Log.d(TAG, it.result?.data?.get("name")?.toString().toString())
-            Log.d(TAG, it.result?.id.toString())
-            it.result?.data
-            name = it.result?.data?.get("name")?.toString().toString()
-            setType(type, data)
-
-        }
-    }
 
 }
 

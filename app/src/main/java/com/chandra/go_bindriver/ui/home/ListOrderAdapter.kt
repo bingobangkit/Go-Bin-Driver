@@ -22,10 +22,10 @@ class ListOrderAdapter(private val listOrder:List<Order>) :RecyclerView.Adapter<
         val order = listOrder[position]
         holder.binding.apply {
             tvName.text = "Chandra Muhamad Apriana"
-            tvAmount.text = order.amount.toString()+"kg"
+            tvAmount.text = order.amount +"kg"
             tvDistance.text = order.status
             tvDate.text = order.date
-            tvPrice.text = "Rp. "+order.total_price.toString()
+            tvPrice.text = "Rp. "+ order.total_price
             root.setOnClickListener { onItemClickCallback?.onItemClicked(order) }
         }
 

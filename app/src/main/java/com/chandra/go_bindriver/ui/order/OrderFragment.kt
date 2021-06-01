@@ -1,25 +1,16 @@
 package com.chandra.go_bindriver.ui.order
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.chandra.go_bindriver.R
 import com.chandra.go_bindriver.databinding.FragmentOrderBinding
-
-import com.chandra.go_bindriver.model.Order
-import com.chandra.go_bindriver.model.Type
-import com.chandra.go_bindriver.ui.detail.DetailFragment
-import com.chandra.go_bindriver.ui.home.ListOrderAdapter
-import com.chandra.go_bindriver.ui.home.MainActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 class OrderFragment : Fragment() {
@@ -36,12 +27,15 @@ class OrderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentOrderBinding.inflate(layoutInflater,container,false)
+        binding = FragmentOrderBinding.inflate(layoutInflater, container, false)
+        binding.toolbarOrder.appName.text = "YOUR PICKUP ORDER"
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbarOrder.btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
 
         val orderPagerAdapter = OrderPagerAdapter(this)
         val viewPager: ViewPager2 = binding.viewPager

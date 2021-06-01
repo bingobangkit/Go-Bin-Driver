@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chandra.go_bindriver.model.Order
+import com.chandra.go_bindriver.model.User
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -33,7 +34,7 @@ class Repository {
                                 id_invoice = document.data["id_invoice"].toString(),
                                 id_user = document.data["id_user"].toString(),
                                 id_driver = document.data["id_driver"].toString(),
-                                address = document.data["id_address"].toString(),
+                                address = document.data["address"].toString(),
                                 id_type = document.data["id_type"].toString(),
                                 amount = document.data["amount"].toString(),
                                 latitude = document.data["latitude"].toString(),
@@ -97,6 +98,40 @@ class Repository {
     fun updateStatus(id: String, status: String) {
 
         Firebase.firestore.collection("order").document(id).update("status", status)
+
+    }
+
+    fun getUserById(id: String): LiveData<out User> {
+        val user = MutableLiveData<User>()
+
+        Firebase.firestore.collection("users").document(id)
+            .addSnapshotListener(object : EventListener<DocumentSnapshot?> {
+                override fun onEvent(value: DocumentSnapshot?, e: FirebaseFirestoreException?) {
+                    if (e != null) {
+                        Log.w(ContentValues.TAG, "Listen error", e)
+                        return
+                    }
+                    user.postValue(
+                        User(
+                            id = value?.id.toString(),
+                            address = value?.data?.get("address").toString(),
+                            latitude = value?.data?.get("latitude").toString(),
+                            longitude = value?.data?.get("longitude").toString(),
+                            phone = value?.data?.get("phone").toString(),
+                            saldo = value?.data?.get("saldo").toString(),
+                            poin = value?.data?.get("poin").toString(),
+                            name = value?.data?.get("name").toString()
+                        )
+                    )
+
+                }
+            })
+        return user
+    }
+
+    fun updateBalance(id: String, balance: String) {
+
+        Firebase.firestore.collection("users").document(id).update("saldo", balance)
 
     }
 }
