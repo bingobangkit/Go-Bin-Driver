@@ -124,7 +124,7 @@
         app:layout_constraintTop_toTopOf="@+id/tv_detail_bottle_title" />
 
     <TextView
-        android:id="@+id/tv_detail_amount"
+        android:id="@+id/tv_detail_amount_plastic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawablePadding="10dp"
@@ -150,7 +150,6 @@
         android:textColor="@color/primary"
         android:textSize="14sp"
         app:drawableLeftCompat="@drawable/ic_box"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_bottle_title" />
 

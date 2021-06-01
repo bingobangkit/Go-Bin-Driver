@@ -128,7 +128,9 @@ class DetailFragment : Fragment() {
     private fun FragmentDetailBinding.setTextDetail(data: Order) {
         tvDetailAddress.text = data.address
         tvDetailDate.text = data.date
-        tvDetailAmount.text = StringBuilder(data.amount + " kg")
+        tvDetailAmountPlastic.text = StringBuilder(data.amount_plastic + " kg")
+        tvDetailAmountSteel.text = StringBuilder(data.amount_steel + " kg")
+        tvDetailAmountCardboard.text = StringBuilder(data.amount_cardboard + " kg")
         tvDetailPrice.text = StringBuilder("Rp. " + data.total_price)
         txtDetailTotalAmount.text = StringBuilder("Rp. " + data.total_price)
         tvDetailTotal.text = StringBuilder("Rp. " +(data.total_price.toInt() - 2000).toString())

@@ -14,5 +14,11 @@ data class Order(
     var longitude: String = "",
     var status: String = "",
     var date: String = "",
-    var total_price: String =""
+    var total_price: String = "",
+    var amount_cardboard: String = "",
+    var amount_plastic: String = "",
+    var amount_steel: String = "",
+    var total_plastic:String="",
+    var total_cardboard:String="",
+    var total_steel:String = ""
 ) : Serializable

@@ -41,7 +41,13 @@ class Repository {
                                 longitude = document.data["longitude"].toString(),
                                 total_price = document.data["total_price"].toString(),
                                 date = document.data["date"].toString(),
-                                status = document.data["status"].toString()
+                                status = document.data["status"].toString(),
+                                amount_plastic =  document.data["amount_plastic"].toString(),
+                                amount_cardboard = document.data["amount_cardboard"].toString(),
+                                amount_steel = document.data["amount_steel"].toString(),
+                                total_plastic = document.data["total_plastic"].toString(),
+                                total_cardboard = document.data["total_cardboard"].toString(),
+                                total_steel = document.data["total_steel"].toString()
                             )
                         )
                     }
@@ -86,7 +92,13 @@ class Repository {
                             longitude = value?.data?.get("longitude").toString(),
                             total_price = value?.data?.get("total_price").toString(),
                             date = value?.data?.get("date").toString(),
-                            status = value?.data?.get("status").toString()
+                            status = value?.data?.get("status").toString(),
+                            amount_plastic = value?.data?.get("amount_plastic").toString(),
+                            amount_cardboard = value?.data?.get("amount_cardboard").toString(),
+                            amount_steel = value?.data?.get("amount_steel").toString(),
+                            total_plastic = value?.data?.get("total_plastic").toString(),
+                            total_cardboard = value?.data?.get("total_cardboard").toString(),
+                            total_steel = value?.data?.get("total_steel").toString()
                         )
                     )
 
