@@ -68,7 +68,6 @@ class DetailFragment : Fragment() {
         val fabMaps = requireActivity().findViewById<FloatingActionButton>(R.id.fab_maps)
         fabMaps.visibility = View.GONE
         botnav.visibility = View.GONE
-        Log.d("detail", income.toString())
         return binding.root
     }
 
@@ -107,7 +106,6 @@ class DetailFragment : Fragment() {
                             binding.btnPickup.text = "Complete"
                         } else if (status == "ongoing") {
                             getUserById(ID_USER,value.total_price.toInt()-2000)
-                            Log.d("detail","clicked")
                             status = "complete"
                             updateStatus(value.id, status)
                             btnPickup.visibility = View.GONE
@@ -128,11 +126,12 @@ class DetailFragment : Fragment() {
     private fun FragmentDetailBinding.setTextDetail(data: Order) {
         tvDetailAddress.text = data.address
         tvDetailDate.text = data.date
-        tvDetailAmountPlastic.text = StringBuilder(data.amount_plastic + " kg")
-        tvDetailAmountSteel.text = StringBuilder(data.amount_steel + " kg")
-        tvDetailAmountCardboard.text = StringBuilder(data.amount_cardboard + " kg")
+        tvDetailAmountPlastic.text = StringBuilder(data.amount_plastic + " Kg")
+        tvDetailAmountSteel.text = StringBuilder(data.amount_steel + " Kg")
+        tvDetailAmountCardboard.text = StringBuilder(data.amount_cardboard + " Kg")
         tvDetailPrice.text = StringBuilder("Rp. " + data.total_price)
-        txtDetailTotalAmount.text = StringBuilder("Rp. " + data.total_price)
+        txtDetailTotalPrice.text = java.lang.StringBuilder("Rp. "+data.total_price)
+        txtDetailTotalAmount.text = StringBuilder(data.amount + " Kg")
         tvDetailTotal.text = StringBuilder("Rp. " +(data.total_price.toInt() - 2000).toString())
         tvDetailDistance.text = data.status
     }

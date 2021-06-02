@@ -21,7 +21,7 @@ class ListOrderAdapter(private val listOrder:List<Order>) :RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val order = listOrder[position]
         holder.binding.apply {
-            tvName.text = "Chandra Muhamad Apriana"
+            tvName.text = "Priambudi Sutanto"
             tvAmount.text = order.amount +"kg"
             tvDistance.text = order.status
             tvDate.text = order.date

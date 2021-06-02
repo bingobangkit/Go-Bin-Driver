@@ -32,7 +32,7 @@
             android:layout_marginTop="2dp"
             android:drawablePadding="8dp"
             android:fontFamily="@font/poppins_light"
-            android:text="Bootle"
+            android:text="Recycle Trash"
             android:textColor="@color/primary"
             android:textSize="14sp"
             app:drawableStartCompat="@drawable/ic_trash"
